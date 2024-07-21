@@ -1,3 +1,5 @@
-export function multiply(a: number, b: number): Promise<number> {
-  return Promise.resolve(a * b);
-}
+import DateRangePicker from './DateRangePicker';
+
+export * from './utils/types';
+
+export default DateRangePicker;

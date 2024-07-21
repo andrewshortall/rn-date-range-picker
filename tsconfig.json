@@ -2,8 +2,9 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-awesome-module": ["./src/index"]
+      "@kurzalle/rn-date-range-picker": ["./src/index"]
     },
+    "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,

@@ -1,17 +1,53 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-awesome-module';
+import { StyleSheet, View } from 'react-native';
+import DateRangePicker, {
+  type DateChangeEvent,
+  type DateRange,
+  type SupportedLocale,
+} from '@kurzalle/rn-date-range-picker';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+require('dayjs/locale/de');
+dayjs.locale('de', {}, true);
+
+const dates = {
+  startDate: dayjs().subtract(5, 'days').toDate(),
+  endDate: dayjs().add(5, 'days').toDate(),
+};
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
+  const [dateFilter, setDateFilter] = useState<DateRange>(dates);
+  const [locale] = useState<SupportedLocale>('en');
 
-  useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+  const setRange = (value: DateChangeEvent) => {
+    const event = value as DateRange;
+    if (event.startDate && event.endDate) {
+      return setDateFilter({
+        startDate: event.startDate,
+        endDate: event.endDate,
+      });
+    }
+    if (event.startDate) {
+      return setDateFilter({
+        startDate: event.startDate,
+        endDate: null,
+      });
+    }
+    if (event.endDate) {
+      return setDateFilter({
+        startDate: dateFilter.startDate,
+        endDate: event.endDate,
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <DateRangePicker
+        value={dateFilter}
+        range={true}
+        onChange={setRange}
+        locale={locale}
+      />
     </View>
   );
 }
