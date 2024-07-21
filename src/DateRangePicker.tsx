@@ -184,10 +184,11 @@ const DateRangePicker = ({
       _endDate?: Date,
       _date?: Date
     ) => {
+       // TODO: Fix dayjs plugin types
       return (
         (_startDate &&
           _endDate &&
-          _selectedDate.isBetween(_startDate, _endDate, null, '[]')) ||
+          (_selectedDate as any).isBetween(_startDate, _endDate, null, '[]')) ||
         (_startDate && _selectedDate.isSame(_startDate, 'day')) ||
         (_endDate && _selectedDate.isSame(_endDate, 'day')) ||
         (_date && _selectedDate.isSame(_date, 'day'))
@@ -249,7 +250,7 @@ const DateRangePicker = ({
     const makeCalendarHeader = () => {
       const _weekdayHeaders = [];
       for (let i = 0; i <= 6; ++i) {
-        let day = dayjs(displayedMonth)
+        let day = (dayjs(displayedMonth) as any) // TODO: Fix dayjs plugin types
           .weekday(i)
           .format('dddd')
           .substring(0, 1);
@@ -271,7 +272,7 @@ const DateRangePicker = ({
       let week: any = [];
       let daysInMonth = displayedMonth.daysInMonth();
       let startOfMonth = dayjs(displayedMonth).set('date', 1);
-      let offset = startOfMonth.weekday();
+      let offset = (startOfMonth as any).weekday(); // TODO: Fix dayjs plugin types
       week = week.concat(
         Array.from({ length: offset }, (_, i) => (
           <CalendarDate
@@ -287,8 +288,9 @@ const DateRangePicker = ({
         let _date = dayjs(displayedMonth).set('date', i);
         let _disabled = disabled(_date, minDate!, maxDate!);
         let start, end;
+         // TODO: Fix dayjs plugin types
         if (
-          dayjs(dateRange?.startDate).isSameOrBefore(dateRange?.endDate) ||
+          (dayjs(dateRange?.startDate) as any).isSameOrBefore(dateRange?.endDate) ||
           !dateRange?.endDate
         ) {
           start = dateRange?.startDate!;
@@ -303,7 +305,7 @@ const DateRangePicker = ({
             key={`day-${i}`}
             index={i}
             daysInMonth={daysInMonth}
-            weekday={_date.weekday()}
+            weekday={(_date as any).weekday()}
             isSelectionMode={start && !end}
             isStartDate={start && _date.isSame(start, 'date')}
             isEndDate={end && _date.isSame(end, 'date')}

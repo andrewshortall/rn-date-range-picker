@@ -1,19 +1,5 @@
 import type { TextStyle, ViewProps, ViewStyle } from 'react-native';
 
-declare module 'dayjs' {
-  interface Dayjs {
-    isBetween(
-      a: ConfigType,
-      b: ConfigType,
-      c?: OpUnitType | null,
-      d?: '()' | '[]' | '[)' | '(]'
-    ): boolean;
-    isSameOrBefore(date?: ConfigType, unit?: OpUnitType): boolean;
-    weekday(): number;
-    weekday(value: number): Dayjs;
-  }
-}
-
 type Nullable<T> = T | null;
 
 export type DateRange = {
