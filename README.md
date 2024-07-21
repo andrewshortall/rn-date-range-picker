@@ -2,7 +2,7 @@
 
 Date range picker for React Native applications
 
-<img src="assets/screenshot.png" alt="React Native date range picker IOS" height="400px" />
+<img src="example/assets/screenshot.png" alt="React Native date range picker IOS" height="400px" />
 
 ## Installation
 
